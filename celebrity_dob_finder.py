@@ -54,15 +54,19 @@ def get_birthdate_from_json_result(json_result):
 	birthdate = birthdate.replace("/0", "/")
 	return birthdate
 
-
+# Currently unused as also have to account for those who have passed away.
+'''
 def get_time_since_birthdate(birthdate):
+	"""
+	Used to get amount of time since birth date.
+	"""
 	celeb_birthdate = t.strptime('1987/09/11', '%Y/%m/%d')
 	today_date = t.strptime(t.strftime("%Y/%m/%d"), '%Y/%m/%d')
 	old_date = datetime(celeb_birthdate.tm_year, celeb_birthdate.tm_mon, celeb_birthdate.tm_mday)
 	new_date = datetime(today_date.tm_year, today_date.tm_mon, today_date.tm_mday)
 	datediff = datetime.timedelta(old_date.fromordinal(1970), new_date.fromordinal(1970))
 	print datediff
-
+'''
 
 def print_result(name, birthdate):
 	"""
@@ -75,6 +79,9 @@ def print_result(name, birthdate):
 
 
 def find_related_birthdays(name, birthdate):
+	"""
+	Finds other celebrities in the database with the same birth month and date.
+	"""
 	dict_of_related_birthdays = {key:val for key, val in DATABASE.iteritems() if val[4:] == birthdate[4:] and key != name}
 	if dict_of_related_birthdays:
 		print "Other notable figures with the same birthday are:"
@@ -390,15 +397,12 @@ def main():
 		try:
 			if DATABASE.has_key(searched_name):
 				print_result(output_name, DATABASE[searched_name])
-				#print "* Came from database"
 				find_related_birthdays(searched_name, DATABASE[searched_name])
 			else:
 				json = request_json_from_api(searched_name)
 				birthdate = get_birthdate_from_json_result(json)
 				print_result(output_name, birthdate)
-				#print "* Came from API"
 				DATABASE[searched_name] = birthdate
-				#print "* Stored in DATABASE"
 				find_related_birthdays(searched_name, DATABASE[searched_name])
 				# get_time_since_birthdate(birthdate)
 		except:
@@ -410,33 +414,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
