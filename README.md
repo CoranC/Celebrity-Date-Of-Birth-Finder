@@ -1,7 +1,7 @@
 # Celebrity Date Of Birth Finder
 This script is run from the terminal and is passed a celebrity name in quotes.
 <br><code>$ python celebrity_dob_finder.py -n "Halle Berry'</code>
-This will run the file and load the database <code>birthdate_database.p</code> which already has multiple celebrities data stored.
+This will run the file and load the database <code>birthdate_database.p</code> which already has multiple celebrity's data stored.
 <br>
 
 If the celebrity you search for already exists in the database, it will return their name and date of birth.<br>
